@@ -17,14 +17,22 @@ app.add_middleware(
 )
 
 
-@app.on_event("startup")
-async def startup():
-    register_tortoise(
-        app=app,
-        config=settings.DB_CONFIG,
-        generate_schemas=True,
-        add_exception_handlers=True
-    )
+# @app.on_event("startup")
+# async def startup():
+#     # register_tortoise(
+#     #     app=app,
+#     #     config=settings.DB_CONFIG,
+#     #     generate_schemas=True,
+#     #     add_exception_handlers=True
+#     # )
+
+register_tortoise(
+    app,
+    db_url="sqlite://test.db",
+    modules={"models": ["api.models.model"]},
+    add_exception_handlers=True,
+    generate_schemas=True
+)
 
 
 @app.get('/')
